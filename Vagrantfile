@@ -21,12 +21,12 @@ SUPPORTED_OS = {
 $num_instances = 3
 $instance_name_prefix = "k8s"
 $vm_gui = false
-$vm_memory = 2048
+$vm_memory = 1536
 $vm_cpus = 1
 $shared_folders = {}
 $forwarded_ports = {}
-$subnet = "172.17.8"
-$os = "ubuntu"
+$subnet = "172.17.7"
+$os = "centos"
 $network_plugin = "flannel"
 # The first three nodes are etcd servers
 $etcd_instances = $num_instances
@@ -131,6 +131,10 @@ Vagrant.configure("2") do |config|
 
       # Disable swap for each vm
       config.vm.provision "shell", inline: "swapoff -a"
+
+      # add pub key to authorized hosts
+      ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
+      config.vm.provision 'shell', inline: "echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys"
 
       # Only execute once the Ansible provisioner,
       # when all the machines are up and ready.
