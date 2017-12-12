@@ -10,9 +10,9 @@
 # ## configure a bastion host if your nodes are not directly reachable
 # bastion ansible_ssh_host=x.x.x.x
 
-k8s-01 ansible_host=172.17.7.101
-k8s-02 ansible_host=172.17.7.102
-k8s-03 ansible_host=172.17.7.103
+k8s-01 ansible_host=bclab1 access_ip=9.59.150.113 etcd_address=9.59.150.113
+k8s-02 ansible_host=bclab2 access_ip=9.192.210.130 etcd_address=9.192.210.130
+k8s-03 ansible_host=bclab3 access_ip=9.59.150.104 etcd_address=9.59.150.104
 
 [kube-master]
 k8s-01
@@ -32,4 +32,4 @@ kube-node
 kube-master
 
 [all:vars]
-http_proxy=http://9.12.248.131:9200
+#http_proxy=http://9.12.248.131:9200
